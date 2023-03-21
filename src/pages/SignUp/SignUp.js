@@ -37,8 +37,10 @@ export default function SignUp() {
   return (
     <PublicMain>
       <LogoBox>
-        <h1>Titulo</h1>
-        <h2>subtitulo</h2>
+        <h1>MoveMentor</h1>
+        <h2>
+          Sua jornada para se tornar um grande jogador de xadrez começa aqui!
+        </h2>
       </LogoBox>
       <FormBox>
         <Form onSubmit={handleSignUp}>
@@ -81,8 +83,8 @@ export default function SignUp() {
             Sign Up
           </button>
         </Form>
-        <Link to={`/`}>
-          <Text>Switch back to log in</Text>
+        <Link to={`/sign-in`}>
+          <Text>Já tem uma conta? Faça login!</Text>
         </Link>
       </FormBox>
     </PublicMain>

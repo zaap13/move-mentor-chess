@@ -1,12 +1,16 @@
 import styled from "styled-components";
 import { logoFont, titleFont } from "../../constants/fonts";
+import background from "../images/chessbackgroung.png";
 
 export const PublicMain = styled.main`
   display: flex;
   min-height: 100vh;
+  width: 100%;
   align-items: center;
   justify-content: space-evenly;
   box-shadow: 4px 0px 4px rgba(0, 0, 0, 0.25);
+  background-image: url(${background});
+  background-size: 100% 150%;
 `;
 
 export const LogoBox = styled.div`
@@ -23,6 +27,7 @@ export const LogoBox = styled.div`
   h2 {
     font-size: 23px;
     line-height: 34px;
+    font-weight: 400;
     text-align: center;
   }
 
