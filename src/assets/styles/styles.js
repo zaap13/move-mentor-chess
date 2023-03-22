@@ -6,19 +6,29 @@ export const PublicMain = styled.main`
   display: flex;
   min-height: 100vh;
   width: 100%;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-evenly;
   box-shadow: 4px 0px 4px rgba(0, 0, 0, 0.25);
   background-image: url(${background});
-  background-size: 100% 150%;
+  background-size: cover;
 `;
 
 export const LogoBox = styled.div`
+  position: sticky;
+  top: 0;
+  left: 0;
   display: flex;
   font-weight: 700;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+
+  width: 100%;
+  height: 100%;
+  color: #ffffff;
+  background-color: #151515;
+  opacity: 0.9;
+
   h1 {
     font-family: ${logoFont};
     font-size: 76px;
@@ -30,11 +40,10 @@ export const LogoBox = styled.div`
     font-weight: 400;
     text-align: center;
   }
-
-  width: 100%;
-  height: 175px;
-  color: #ffffff;
-  background-color: #151515;
+  img {
+    width: 200px;
+    border-radius: 100px;
+  }
 
   @media (min-width: 768px) {
     width: 60%;
@@ -62,8 +71,25 @@ export const FormBox = styled.div`
   width: 100%;
   margin: 0;
   height: 60%;
-  padding: 20px;
+  padding: 10vw 20px;
   gap: 20px;
+  color: #fff;
+  font-family: ${titleFont};
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+
+  h2 {
+    font-weight: 700;
+    font-size: 48px;
+    line-height: 52px;
+  }
+  h3 {
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 33px;
+  }
+  span {
+    color: #3498db;
+  }
 
   @media (min-width: 768px) {
     margin: 0 50px;

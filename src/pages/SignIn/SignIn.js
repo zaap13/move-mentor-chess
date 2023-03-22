@@ -1,5 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useContext, useState } from "react";
+import pawn from "../../assets/images/pawn.png";
 import useSignIn from "../../hooks/api/useSignIn";
 import {
   PublicMain,
@@ -34,24 +35,26 @@ export default function SignIn() {
   return (
     <PublicMain>
       <LogoBox>
+        <img src={pawn} alt="Pawn chess white and green" />
         <h1>MoveMentor</h1>
-        <h2>
-          Sua jornada para se tornar um grande jogador de xadrez começa aqui!
-        </h2>
+        <h2>Aprenda xadrez de forma interativa</h2>
       </LogoBox>
       <FormBox>
+        <h2>Log In</h2>
+        <h3>Faça login em sua conta MoveMentor</h3>
+
         <Form onSubmit={handleSignIn}>
           <input
             disabled={loadingSignIn}
             type="email"
-            placeholder="e-mail"
+            placeholder="E-mail"
             onChange={(e) => setEmail(e.target.value)}
             required
           />
           <input
             disabled={loadingSignIn}
             type="password"
-            placeholder="password"
+            placeholder="Senha"
             onChange={(e) => setPassword(e.target.value)}
             required
           />

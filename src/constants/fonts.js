@@ -1,5 +1,5 @@
-export const mainFont = "'Lato', sans-serif";
+export const mainFont = "'Lora', serif";
 
-export const logoFont = "'Passion One', cursive";
+export const logoFont = "'Ubuntu', sans-serif";
 
-export const titleFont = "'Oswald', sans-serif";
+export const titleFont = "'Roboto Condensed', sans-serif";

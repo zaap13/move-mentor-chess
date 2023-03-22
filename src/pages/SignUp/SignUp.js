@@ -1,5 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
+import pawn from "../../assets/images/pawn.png";
 import {
   PublicMain,
   Form,
@@ -37,45 +38,48 @@ export default function SignUp() {
   return (
     <PublicMain>
       <LogoBox>
+        <img src={pawn} alt="Pawn chess white and green" />
         <h1>MoveMentor</h1>
-        <h2>
-          Sua jornada para se tornar um grande jogador de xadrez começa aqui!
-        </h2>
+        <h2>Aprenda xadrez de forma interativa</h2>
       </LogoBox>
       <FormBox>
+        <h2>Dê o primeiro movimento para aprimorar seu jogo de xadrez!</h2>
+        <h3>
+          Crie sua conta no MoveMentor e tenha acesso a conteúdos incríveis!
+        </h3>
         <Form onSubmit={handleSignUp}>
           <input
             disabled={loadingSignUp}
             type="email"
-            placeholder="e-mail"
+            placeholder="E-mail"
             onChange={(e) => setEmail(e.target.value)}
             required
           />
           <input
             disabled={loadingSignUp}
             type="password"
-            placeholder="password"
+            placeholder="Senha"
             onChange={(e) => setPassword(e.target.value)}
             required
           />
           <input
             disabled={loadingSignUp}
             type="password"
-            placeholder="confirm password"
+            placeholder="Confirme a senha"
             onChange={(e) => setConfirmPassword(e.target.value)}
             required
           />
           <input
             disabled={loadingSignUp}
             type="text"
-            placeholder="username"
+            placeholder="Nome de usuário"
             onChange={(e) => setUsername(e.target.value)}
             required
           />
           <input
             disabled={loadingSignUp}
             type="text"
-            placeholder="picture url"
+            placeholder="URL da sua imagem de perfil"
             onChange={(e) => setPicture(e.target.value)}
             required
           />
