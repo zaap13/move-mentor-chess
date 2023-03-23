@@ -1,6 +1,6 @@
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import pawn from "../../assets/images/pawn.png";
-import { PublicMain, LogoBox, FormBox } from "../../assets/styles/styles";
+import { PublicMain, LogoBox, FormBox, Text } from "../../assets/styles/styles";
 
 export default function HomePage() {
   const navigate = useNavigate();
@@ -25,6 +25,12 @@ export default function HomePage() {
             mestre do tabuleiro. Não espere mais, seu próximo movimento pode ser
             o mais importante.
           </h3>
+
+          <button onClick={() => navigate("/sign-up")}>Comece Agora!</button>
+
+          <Link to={`/sign-in`}>
+            <Text>Já tem uma conta? Faça login!</Text>
+          </Link>
         </FormBox>
       </PublicMain>
     </>

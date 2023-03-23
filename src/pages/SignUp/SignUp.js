@@ -8,7 +8,7 @@ import {
   Text,
   FormBox,
 } from "../../assets/styles/styles";
-import useSignUp from "../../hooks/api/useSignIn";
+import useSignUp from "../../hooks/api/useSignUp";
 import { toast } from "react-toastify";
 
 export default function SignUp() {
@@ -38,7 +38,11 @@ export default function SignUp() {
   return (
     <PublicMain>
       <LogoBox>
-        <img src={pawn} alt="Pawn chess white and green" />
+        <img
+          src={pawn}
+          alt="Pawn chess white and green"
+          onClick={() => navigate("/")}
+        />
         <h1>MoveMentor</h1>
         <h2>Aprenda xadrez de forma interativa</h2>
       </LogoBox>

@@ -35,7 +35,7 @@ export default function SignIn() {
   return (
     <PublicMain>
       <LogoBox>
-        <img src={pawn} alt="Pawn chess white and green" />
+        <img src={pawn} alt="Pawn chess white and green" onClick={() => navigate('/')}/>
         <h1>MoveMentor</h1>
         <h2>Aprenda xadrez de forma interativa</h2>
       </LogoBox>

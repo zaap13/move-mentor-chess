@@ -68,10 +68,11 @@ export const FormBox = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  background-color: rgba(21, 21, 21, 0.3);
   width: 100%;
   margin: 0;
   height: 60%;
-  padding: 10vw 20px;
+  padding: 8vh 0.3vw;
   gap: 20px;
   color: #fff;
   font-family: ${titleFont};
@@ -89,6 +90,18 @@ export const FormBox = styled.div`
   }
   span {
     color: #3498db;
+  }
+  button {
+    width: 100%;
+    height: 55px;
+    background: #1877f2;
+    border-radius: 5px;
+    font-weight: 700;
+    font-size: 22px;
+    line-height: 33px;
+    cursor: pointer;
+    color: #ffffff;
+    font-family: ${titleFont};
   }
 
   @media (min-width: 768px) {
