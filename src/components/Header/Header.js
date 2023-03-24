@@ -7,11 +7,12 @@ import {
 import { GoChevronDown, GoChevronUp } from "react-icons/go";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import character from "../../assets/images/character.png";
+import useUser from "../../hooks/useUser";
 
 export default function Header() {
   const [clicked, setClicked] = useState(false);
   const navigate = useNavigate();
+  const user = useUser();
 
   return (
     <HeaderStyle>
@@ -28,7 +29,7 @@ export default function Header() {
             color="#FFFFFF"
             display={clicked ? "" : "none"}
           />
-          <img src={character} alt="profile" />
+          <img src={user.image} alt="profile" />
         </IconImageProfile>
         <LogoutText
           onClick={() => localStorage.clear()}

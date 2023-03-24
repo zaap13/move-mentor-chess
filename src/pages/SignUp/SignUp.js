@@ -26,7 +26,7 @@ export default function SignUp() {
       toast("As senhas devem ser iguais!");
     } else {
       try {
-        await signUp(email, password, username, picture);
+        await signUp(email, password, picture, username);
         toast("Inscrito com sucesso! Por favor, faça login.");
         navigate("/sign-in");
       } catch (error) {
