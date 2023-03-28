@@ -1,0 +1,48 @@
+import Piece from "./Piece";
+
+export default function Bishop({ initialPosition }) {
+  return (
+    <>
+      <Piece
+        initialPosition={initialPosition}
+        calculatePossibleMoves={calculatePossibleMoves}
+      />
+    </>
+  );
+}
+
+function calculatePossibleMoves(square, position) {
+  const row = square.charAt(1);
+  const col = square.charCodeAt(0);
+  const moves = [];
+
+  if (position[square]?.charAt(1) !== "B") {
+    return moves;
+  }
+
+  // diagonal moves
+  for (let i = 1; i < 8; i++) {
+    const r1 = row.charCodeAt(0) - i;
+    const r2 = row.charCodeAt(0) + i;
+    const c1 = col - i;
+    const c2 = col + i;
+    if (r1 >= 49) {
+      if (c1 >= 97) {
+        moves.push(String.fromCharCode(c1) + String.fromCharCode(r1));
+      }
+      if (c2 <= 104) {
+        moves.push(String.fromCharCode(c2) + String.fromCharCode(r1));
+      }
+    }
+    if (r2 <= 56) {
+      if (c1 >= 97) {
+        moves.push(String.fromCharCode(c1) + String.fromCharCode(r2));
+      }
+      if (c2 <= 104) {
+        moves.push(String.fromCharCode(c2) + String.fromCharCode(r2));
+      }
+    }
+  }
+
+  return moves;
+}

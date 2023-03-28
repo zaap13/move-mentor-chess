@@ -9,4 +9,3 @@ export async function signUp(email, password, image, username) {
   });
   return response.data;
 }
-//
