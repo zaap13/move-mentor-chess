@@ -1,10 +1,10 @@
 import Piece from "./Piece";
 
-export default function Bishop({ initialPosition }) {
+export default function Bishop({ position }) {
   return (
     <>
       <Piece
-        initialPosition={initialPosition}
+        position={position}
         calculatePossibleMoves={calculatePossibleMoves}
       />
     </>

@@ -3,8 +3,8 @@ import { Chessboard } from "react-chessboard";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-function Piece({ initialPosition, calculatePossibleMoves }) {
-  const [position, setPosition] = useState(initialPosition);
+function Piece({ position, calculatePossibleMoves }) {
+  const [position, setPosition] = useState(position);
 
   const [highlightedSquare, setHighlightedSquare] = useState(null);
   const [possibleMoves, setPossibleMoves] = useState([]);
@@ -22,7 +22,7 @@ function Piece({ initialPosition, calculatePossibleMoves }) {
     delete newPosition[sourceSquare];
     newPosition[targetSquare] = sourcePiece;
 
-    if (Object.keys(initialPosition).length === 1) {
+    if (Object.keys(position).length === 1) {
       toast.success("Parabens");
       setPosition(newPosition);
     } else if (Object.keys(newPosition).length < Object.keys(position).length) {

@@ -1,10 +1,10 @@
 import Piece from "./Piece";
 
-export default function Queen({ initialPosition }) {
+export default function Queen({ position }) {
   return (
     <>
       <Piece
-        initialPosition={initialPosition}
+        position={position}
         calculatePossibleMoves={calculatePossibleMoves}
       />
     </>

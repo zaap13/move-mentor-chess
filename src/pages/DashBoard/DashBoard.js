@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Container, Main, Title } from "../../assets/styles/styles";
 import Header from "../../components/Header/Header";
 import useToken from "../../hooks/useToken";
 
@@ -22,10 +23,15 @@ export default function DashBoard() {
   return (
     <>
       <Header />
-      <h2>Seus Cursos: </h2>
-      {userCourses.map((c) => (
-        <CourseBox key={c.id} course={c} />
-      ))}
+
+      <Main>
+        <Container>
+          <Title> Seus Cursos</Title>
+          {userCourses.map((c) => (
+            <CourseBox key={c.id} course={c} />
+          ))}
+        </Container>
+      </Main>
     </>
   );
 }

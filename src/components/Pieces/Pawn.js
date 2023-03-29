@@ -1,10 +1,10 @@
 import Piece from "./Piece";
 
-export default function Pawn({ initialPosition }) {
+export default function Pawn({ position }) {
   return (
     <>
       <Piece
-        initialPosition={initialPosition}
+        position={position}
         calculatePossibleMoves={calculatePossibleMoves}
       />
     </>

@@ -2,11 +2,9 @@ import React, { useState, useEffect } from "react";
 import ChessboardVariant from "./ChessboardVariant";
 import { Chess } from "chess.js";
 
-export default function Variant({ moves, userColor }) {
+export default function Variant({ moves, userColor, position }) {
   const [variant, setVariant] = useState(null);
-  const fen = "";
-
-  const [game] = useState(fen ? new Chess(fen) : new Chess());
+  const [game] = useState(position ? new Chess(position) : new Chess());
 
   useEffect(() => {
     const timer = setTimeout(() => {

@@ -1,10 +1,10 @@
 import Piece from "./Piece";
 
-export default function King({ initialPosition }) {
+export default function King({ position }) {
   return (
     <>
       <Piece
-        initialPosition={initialPosition}
+        position={position}
         calculatePossibleMoves={calculatePossibleMoves}
       />
     </>

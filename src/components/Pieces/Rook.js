@@ -1,10 +1,10 @@
 import Piece from "./Piece";
 
-export default function Rook({ initialPosition }) {
+export default function Rook({ position }) {
   return (
     <>
       <Piece
-        initialPosition={initialPosition}
+        position={position}
         calculatePossibleMoves={calculatePossibleMoves}
       />
     </>

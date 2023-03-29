@@ -208,10 +208,16 @@ export const Title = styled.h2`
 `;
 
 export const Container = styled.div`
+  width: 60%;
   display: flex;
+  flex-direction: column;
   margin-top: 72px;
   align-items: flex-start;
-  justify-content: center;
+  gap: 15px;
+
+  @media (max-width: 768px) {
+    width: 100vw;
+  }
 `;
 
 export const UrlImg = styled.img`
