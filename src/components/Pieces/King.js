@@ -1,6 +1,7 @@
 import Piece from "./Piece";
 
-export default function King({ position }) {
+export default function King({ lesson }) {
+  const { position } = lesson;
   return (
     <>
       <Piece

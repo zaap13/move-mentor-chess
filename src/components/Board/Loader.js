@@ -16,20 +16,12 @@ const components = {
   Chess,
 };
 
-export default function Loader({
-  piece,
-  position,
-  moves,
-  userColor,
-  progresses,
-}) {
-  const Component = components[piece];
-  return (
-    <Component
-      position={position}
-      moves={moves}
-      userColor={userColor}
-      progresses={progresses}
-    />
-  );
+export default function Loader({ lesson }) {
+  const Component = components[lesson.piece];
+
+  if (Component) {
+    return <Component lesson={lesson} />;
+  } else {
+    return <div>Component not found</div>;
+  }
 }

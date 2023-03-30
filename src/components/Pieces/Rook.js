@@ -1,6 +1,7 @@
 import Piece from "./Piece";
 
-export default function Rook({ position }) {
+export default function Rook({ lesson }) {
+  const { position } = lesson;
   return (
     <>
       <Piece

@@ -3,10 +3,13 @@ import styled from "styled-components";
 import { CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import { titleFont } from "../../constants/fonts";
+import { useNavigate } from "react-router-dom";
 
 export default function CourseBox({ course }) {
   const [showLessons, setShowLessons] = useState(false);
   const [progress, setProgress] = useState(0);
+  const navigate = useNavigate();
+
 
   useEffect(() => {
     const progress = (
@@ -54,7 +57,7 @@ export default function CourseBox({ course }) {
         {showLessons && (
           <LessonList>
             {course.lessons.map((l) => (
-              <Lesson key={l.id}>
+              <Lesson key={l.id} onClick={() => navigate(`/lesson/${l.id}`)}>
                 {l.title} - {l.progresses[0]?.completed ? "OK" : "X"}
               </Lesson>
             ))}
@@ -159,7 +162,7 @@ const Lesson = styled.li`
   :hover {
     background-color: #313143;
     border: 0.1px solid #ffffff;
-
+    cursor: pointer;
   }
 
   &:last-child {

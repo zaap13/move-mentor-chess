@@ -1,14 +1,9 @@
-export default function Chess({
-  piece,
-  position,
-  moves,
-  userColor,
-  progresses,
-}) {
-  console.log(piece, position, moves, userColor, progresses);
+import Variant from "./Variant";
+
+export default function Chess({ lesson }) {
   return (
     <>
-      <></>
+      <Variant lesson={lesson} />
     </>
   );
 }

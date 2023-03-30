@@ -4,13 +4,13 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 function Piece({ position, calculatePossibleMoves }) {
-  const [position, setPosition] = useState(position);
+  const [initialPosition, setinitialPosition] = useState(position);
 
   const [highlightedSquare, setHighlightedSquare] = useState(null);
   const [possibleMoves, setPossibleMoves] = useState([]);
 
   function onDrop(sourceSquare, targetSquare) {
-    const sourcePiece = position[sourceSquare];
+    const sourcePiece = initialPosition[sourceSquare];
     const isPossibleMove = possibleMoves.includes(targetSquare);
 
     if (!isPossibleMove) {
@@ -18,16 +18,19 @@ function Piece({ position, calculatePossibleMoves }) {
       return;
     }
 
-    const newPosition = { ...position };
-    delete newPosition[sourceSquare];
-    newPosition[targetSquare] = sourcePiece;
+    const newinitialPosition = { ...initialPosition };
+    delete newinitialPosition[sourceSquare];
+    newinitialPosition[targetSquare] = sourcePiece;
 
-    if (Object.keys(position).length === 1) {
+    if (Object.keys(initialPosition).length === 1) {
       toast.success("Parabens");
-      setPosition(newPosition);
-    } else if (Object.keys(newPosition).length < Object.keys(position).length) {
+      setinitialPosition(newinitialPosition);
+    } else if (
+      Object.keys(newinitialPosition).length <
+      Object.keys(initialPosition).length
+    ) {
       alert("Peça capturada!");
-      setPosition(newPosition);
+      setinitialPosition(newinitialPosition);
     } else {
       toast.error("Movimento errado");
     }
@@ -41,7 +44,7 @@ function Piece({ position, calculatePossibleMoves }) {
   }
 
   function onMouseOverSquare(square) {
-    const moves = calculatePossibleMoves(square, position);
+    const moves = calculatePossibleMoves(square, initialPosition);
     setHighlightedSquare(square);
     setPossibleMoves(moves);
   }
@@ -50,8 +53,8 @@ function Piece({ position, calculatePossibleMoves }) {
     <>
       <Chessboard
         id="StyledBoard"
-        boardWidth={600}
-        position={position}
+        boardWidth={555}
+        position={initialPosition}
         onPieceDrop={onDrop}
         onMouseOverSquare={onMouseOverSquare}
         customBoardStyle={{

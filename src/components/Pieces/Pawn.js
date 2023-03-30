@@ -1,6 +1,7 @@
 import Piece from "./Piece";
 
-export default function Pawn({ position }) {
+export default function Pawn({ lesson }) {
+  const { position } = lesson;
   return (
     <>
       <Piece

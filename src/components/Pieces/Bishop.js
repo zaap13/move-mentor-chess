@@ -1,6 +1,7 @@
 import Piece from "./Piece";
 
-export default function Bishop({ position }) {
+export default function Bishop({ lesson }) {
+  const { position } = lesson;
   return (
     <>
       <Piece

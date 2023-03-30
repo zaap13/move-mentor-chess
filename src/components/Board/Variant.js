@@ -2,15 +2,16 @@ import React, { useState, useEffect } from "react";
 import ChessboardVariant from "./ChessboardVariant";
 import { Chess } from "chess.js";
 
-export default function Variant({ moves, userColor, position }) {
+export default function Variant({ lesson }) {
+  const { moves, position } = lesson;
   const [variant, setVariant] = useState(null);
-  const [game] = useState(position ? new Chess(position) : new Chess());
+  const [game] = useState(position.fen ? new Chess(position.fen) : new Chess());
 
   useEffect(() => {
     const timer = setTimeout(() => {
       setVariant({
         fen: game.fen(),
-        moves: moves,
+        moves: Object.values(moves),
       });
     }, 1000);
     return () => clearTimeout(timer);
@@ -20,5 +21,10 @@ export default function Variant({ moves, userColor, position }) {
     return <div>Loading...</div>;
   }
 
-  return <ChessboardVariant variant={variant} userColor={userColor} />;
+  return (
+    <ChessboardVariant
+      variant={variant}
+      lesson={lesson}
+    />
+  );
 }

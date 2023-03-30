@@ -1,6 +1,7 @@
 import Piece from "./Piece";
 
-export default function Knight({ position }) {
+export default function Knight({ lesson }) {
+  const { position } = lesson;
   return (
     <>
       <Piece

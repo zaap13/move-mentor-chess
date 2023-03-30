@@ -1,7 +1,7 @@
 import api from "./api";
 
 export async function getLesson(id, token) {
-  const response = await api.get(`/lessons/:${id}`, {
+  const response = await api.get(`/lesson/${id}`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -10,10 +10,15 @@ export async function getLesson(id, token) {
 }
 
 export async function completeLesson(id, token) {
-  const response = await api.post(`/lessons/complete/:${id}`, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
+  console.log(id, token);
+  const response = await api.post(
+    `/lesson/complete/${id}`,
+    {},
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
   return response.data;
 }
