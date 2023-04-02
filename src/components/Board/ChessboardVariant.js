@@ -129,6 +129,9 @@ export default function ChessboardVariant({ variant, lesson }) {
           setChess(new Chess(chess.fen()));
           setCurrentColor(chess.turn());
           setNextMoveIndex(nextMoveIndex + 1);
+          if (variant.msg[moves[nextMoveIndex]]) {
+            alert(variant.msg[moves[nextMoveIndex]]);
+          }
         }
       } else {
         setArrow([parseMove(moves[nextMoveIndex])]);

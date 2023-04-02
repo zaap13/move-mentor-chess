@@ -11,7 +11,8 @@ export default function Variant({ lesson }) {
     const timer = setTimeout(() => {
       setVariant({
         fen: game.fen(),
-        moves: Object.values(moves),
+        moves: Object.keys(moves),
+        msg: moves,
       });
     }, 1000);
     return () => clearTimeout(timer);
@@ -21,10 +22,5 @@ export default function Variant({ lesson }) {
     return <div>Loading...</div>;
   }
 
-  return (
-    <ChessboardVariant
-      variant={variant}
-      lesson={lesson}
-    />
-  );
+  return <ChessboardVariant variant={variant} lesson={lesson} />;
 }
