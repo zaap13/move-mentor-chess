@@ -1,8 +1,14 @@
 import React, { useState, useEffect } from "react";
+import styled from "styled-components";
+import Header from "../Header/Header";
 import ChessboardVariant from "./ChessboardVariant";
 import { Chess } from "chess.js";
 
-export default function Variant({ lesson }) {
+const Lesson = styled.div`
+  display: flex;
+`;
+
+export default function Game({ lesson }) {
   const { position, messages = {}, moves = [] } = lesson;
   const [variant, setVariant] = useState(null);
   const game = new Chess(position);
@@ -22,5 +28,12 @@ export default function Variant({ lesson }) {
     return <div>Loading...</div>;
   }
 
-  return <ChessboardVariant variant={variant} lesson={lesson} />;
+  return (
+    <>
+      <Header />
+      <Lesson>
+        <ChessboardVariant variant={variant} lesson={lesson} />
+      </Lesson>
+    </>
+  );
 }

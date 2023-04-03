@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import useToken from "../../hooks/useToken";
 import { getLesson } from "../../services/lessonApi";
-import Chess from "../../components/Board/Chess";
+import Game from "../../components/Board/Game";
 
 export default function Lesson() {
   const { id } = useParams();
@@ -21,7 +21,7 @@ export default function Lesson() {
 
   return (
     <>
-      <Chess lesson={lesson} />
+      <Game lesson={lesson} />
     </>
   );
 }

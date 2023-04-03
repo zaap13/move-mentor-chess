@@ -238,7 +238,7 @@ const InfoContainer = styled.div`
   padding: 20px;
   border-radius: 10px;
   width: 350px;
-  height: fit-content;
+  height: 555px;
   margin-left: 20px;
   margin-top: 5px;
   display: flex;
