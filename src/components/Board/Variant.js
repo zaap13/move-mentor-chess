@@ -3,20 +3,20 @@ import ChessboardVariant from "./ChessboardVariant";
 import { Chess } from "chess.js";
 
 export default function Variant({ lesson }) {
-  const { moves, position } = lesson;
+  const { position, messages = {}, moves = [] } = lesson;
   const [variant, setVariant] = useState(null);
-  const [game] = useState(position.fen ? new Chess(position.fen) : new Chess());
+  const game = new Chess(position);
 
   useEffect(() => {
     const timer = setTimeout(() => {
       setVariant({
         fen: game.fen(),
-        moves: Object.keys(moves),
-        msg: moves,
+        moves: moves,
+        msg: messages,
       });
     }, 1000);
     return () => clearTimeout(timer);
-  }, []);
+  }, [game.fen()]);
 
   if (!variant) {
     return <div>Loading...</div>;

@@ -9,13 +9,13 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useUser from "../../hooks/useUser";
 
-export default function Header() {
+export default function Header({ isFixed }) {
   const [clicked, setClicked] = useState(false);
   const navigate = useNavigate();
   const user = useUser();
 
   return (
-    <HeaderStyle>
+    <HeaderStyle isFixed={isFixed}>
       <h1 onClick={() => navigate("*")}>MoveMentor</h1>
       <LogoutContainer>
         <IconImageProfile onClick={() => setClicked(!clicked)}>

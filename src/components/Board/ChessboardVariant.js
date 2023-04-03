@@ -90,16 +90,9 @@ export default function ChessboardVariant({ variant, lesson }) {
             setDragPieces(false);
             if (!lesson.progresses) {
               handleComplete(lesson.id);
-              alert("Parabens");
+              toast.success("Parabens, lição completa");
             }
             return;
-          }
-          const result = chess.move(move, { sloppy: true });
-
-          if (result) {
-            setChess(new Chess(chess.fen()));
-            setCurrentColor(chess.turn());
-            setNextMoveIndex(nextMoveIndex + 1);
           }
         }, 1000);
 
@@ -112,10 +105,10 @@ export default function ChessboardVariant({ variant, lesson }) {
 
   const handleMove = (sourceSquare, targetSquare) => {
     if (currentColor === lesson.userColor) {
-      if (
-        moves[nextMoveIndex].startsWith(sourceSquare) &&
-        moves[nextMoveIndex].endsWith(targetSquare)
-      ) {
+      const nextMove = moves[nextMoveIndex];
+      const expectedMove = `${sourceSquare}${targetSquare}`;
+
+      if (nextMove && nextMove.startsWith(expectedMove)) {
         const move = chess.move(
           {
             from: sourceSquare,
@@ -129,12 +122,10 @@ export default function ChessboardVariant({ variant, lesson }) {
           setChess(new Chess(chess.fen()));
           setCurrentColor(chess.turn());
           setNextMoveIndex(nextMoveIndex + 1);
-          if (variant.msg[moves[nextMoveIndex]]) {
-            alert(variant.msg[moves[nextMoveIndex]]);
-          }
         }
       } else {
-        setArrow([parseMove(moves[nextMoveIndex])]);
+        setArrow([parseMove(nextMove)]);
+        toast.error("Movimento errado, tente de novo");
         return;
       }
     }
@@ -147,9 +138,14 @@ export default function ChessboardVariant({ variant, lesson }) {
   }
 
   function onMouseOverSquare(square) {
-    const moves = chess.moves({ square: square, verbose: true });
-    setHighlightedSquare(square);
-    setPossibleMoves(moves.map((m) => m.to));
+    if (dragPieces) {
+      const moves = chess.moves({ square: square, verbose: true });
+      setHighlightedSquare(square);
+      setPossibleMoves(moves.map((m) => m.to));
+    } else {
+      setHighlightedSquare(null);
+      setPossibleMoves([]);
+    }
   }
 
   function handleReview() {
@@ -161,36 +157,46 @@ export default function ChessboardVariant({ variant, lesson }) {
   }
 
   return (
-    <ChessTable>
-      <Chessboard
-        boardWidth={555}
-        position={chess.fen()}
-        onPieceDrop={nextMoveIndex < moves.length ? handleMove : null}
-        customArrows={arrow}
-        arePiecesDraggable={dragPieces}
-        customBoardStyle={{
-          borderRadius: "4px",
-          boxShadow: "0 2px 10px rgba(0, 0, 0, 0.5)",
-        }}
-        boardOrientation={lesson.userColor === "b" ? "black" : "white"}
-        customDarkSquareStyle={{ backgroundColor: "#779952" }}
-        customLightSquareStyle={{ backgroundColor: "#edeed1" }}
-        onMouseOverSquare={onMouseOverSquare}
-        highlightStyle={{ backgroundColor: "rgba(255, 255, 0, 0.4)" }}
-        customSquareStyles={{
-          [highlightedSquare]: { backgroundColor: "rgba(255, 255, 0, 0.4)" },
-          ...possibleMoves.reduce((obj, move) => {
-            obj[move] = { backgroundColor: "rgba(0, 255, 0, 0.4)" };
-            return obj;
-          }, {}),
-        }}
-      />
-      <ToastContainer theme="colored" />
-      <p>{`É ${
-        currentColor === lesson.userColor ? "sua vez" : "vez do oponente"
-      } jogar de ${currentColor === "w" ? "(Brancas)" : "(Negras)"}`}</p>
-      <h3 onClick={() => handleReview()}>Rever Variante</h3>
-    </ChessTable>
+    <>
+      <ChessTable>
+        <Chessboard
+          boardWidth={555}
+          position={chess.fen()}
+          onPieceDrop={nextMoveIndex < moves.length ? handleMove : null}
+          customArrows={arrow}
+          arePiecesDraggable={dragPieces}
+          customBoardStyle={{
+            borderRadius: "4px",
+            boxShadow: "0 2px 10px rgba(0, 0, 0, 0.5)",
+          }}
+          boardOrientation={lesson.userColor === "b" ? "black" : "white"}
+          customDarkSquareStyle={{ backgroundColor: "#779952" }}
+          customLightSquareStyle={{ backgroundColor: "#edeed1" }}
+          onMouseOverSquare={onMouseOverSquare}
+          highlightStyle={{ backgroundColor: "rgba(255, 255, 0, 0.4)" }}
+          customSquareStyles={{
+            [highlightedSquare]: { backgroundColor: "rgba(255, 255, 0, 0.4)" },
+            ...possibleMoves.reduce((obj, move) => {
+              obj[move] = { backgroundColor: "rgba(0, 255, 0, 0.4)" };
+              return obj;
+            }, {}),
+          }}
+        />
+        <ToastContainer theme="colored" />
+        <p>{`É ${
+          currentColor === lesson.userColor ? "sua vez" : "vez do oponente"
+        } jogar de ${currentColor === "w" ? "(Brancas)" : "(Negras)"}`}</p>
+        <h3 onClick={() => handleReview()}>Rever Variante</h3>
+      </ChessTable>
+      <InfoContainer>
+        <h3>{lesson.title}</h3>
+        <p>{lesson.description}</p>
+        <div>
+          <strong>{moves[nextMoveIndex - 1]}</strong>
+          <span>{variant.msg[moves[nextMoveIndex - 1]]}</span>
+        </div>
+      </InfoContainer>
+    </>
   );
 }
 
@@ -198,6 +204,7 @@ const ChessTable = styled.div`
   display: flex;
   flex-direction: column;
   width: fit-content;
+  gap: 5px;
 
   p {
     margin-bottom: 10px;
@@ -221,6 +228,53 @@ const ChessTable = styled.div`
 
     &:hover {
       background-color: #0069d9;
+    }
+  }
+`;
+
+const InfoContainer = styled.div`
+  background-color: #1c1c1c;
+  color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  width: 350px;
+  height: fit-content;
+  margin-left: 20px;
+  margin-top: 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  h3 {
+    margin: 0;
+    font-size: 24px;
+    font-weight: bold;
+    border-bottom: 2px solid #fff;
+    padding-bottom: 10px;
+  }
+
+  p {
+    margin: 0;
+    font-size: 16px;
+    line-height: 1.5;
+  }
+
+  div {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 20px;
+    font-size: 14px;
+    background-color: #333;
+    border: 0.1px solid #fff;
+    padding: 10px;
+
+    strong {
+      font-weight: bold;
+    }
+    span {
+      color: #00c853;
+      font-weight: bold;
     }
   }
 `;

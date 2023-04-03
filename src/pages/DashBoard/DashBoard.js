@@ -26,7 +26,7 @@ export default function DashBoard() {
 
   return (
     <>
-      <Header />
+      <Header isFixed={true} />
 
       <Main>
         <Container>

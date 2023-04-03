@@ -1,9 +1,20 @@
+import styled from "styled-components";
+import Header from "../Header/Header";
 import Variant from "./Variant";
 
 export default function Chess({ lesson }) {
   return (
     <>
-      <Variant lesson={lesson} />
+      <Header />
+
+      <Lesson>
+        <Variant lesson={lesson} />
+        
+      </Lesson>
     </>
   );
 }
+
+const Lesson = styled.div`
+  display: flex;
+`;

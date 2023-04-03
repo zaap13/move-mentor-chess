@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import Loader from "../../components/Board/Loader";
 import useToken from "../../hooks/useToken";
 import { getLesson } from "../../services/lessonApi";
+import Chess from "../../components/Board/Chess";
 
 export default function Lesson() {
   const { id } = useParams();
@@ -21,7 +21,7 @@ export default function Lesson() {
 
   return (
     <>
-      <Loader lesson={lesson} />
+      <Chess lesson={lesson} />
     </>
   );
 }

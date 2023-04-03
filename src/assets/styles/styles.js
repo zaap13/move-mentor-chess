@@ -23,8 +23,8 @@ export const LogoBox = styled.div`
   align-items: center;
   justify-content: center;
 
-  width: 100%;
-  height: 100%;
+  width: 60%;
+  height: 100vh;
   color: #ffffff;
   background-color: #151515;
   opacity: 0.9;
@@ -45,22 +45,8 @@ export const LogoBox = styled.div`
     border-radius: 100px;
   }
 
-  @media (min-width: 768px) {
-    width: 60%;
-    height: 100vh;
-    align-items: center;
-    justify-content: center;
-
-    h1 {
-      font-size: 106px;
-      line-height: 117px;
-
-      letter-spacing: 0.05em;
-    }
-    h2 {
-      font-size: 43px;
-      line-height: 64px;
-    }
+  @media (max-width: 768px) {
+    display: none;
   }
 `;
 
@@ -80,13 +66,13 @@ export const FormBox = styled.div`
 
   h2 {
     font-weight: 700;
-    font-size: 48px;
-    line-height: 52px;
+    font-size: 36px;
+    line-height: 40px;
   }
   h3 {
     font-weight: 400;
     font-size: 24px;
-    line-height: 33px;
+    line-height: 24px;
   }
   span {
     color: #3498db;
