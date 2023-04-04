@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { logoFont } from "../../constants/fonts";
+import { logoFont, titleFont } from "../../constants/fonts";
 
 const HeaderStyle = styled.nav`
   background-color: #151515;
@@ -10,24 +10,38 @@ const HeaderStyle = styled.nav`
 
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
   position: ${(props) => (props.isFixed ? "fixed" : "")};
   top: 0;
   left: 0;
   z-index: 2;
 
   h1 {
-    font-size: 49px;
+    font-size: 48px;
     font-weight: bold;
     letter-spacing: 5%;
     color: #ffffff;
     font-family: ${logoFont};
+    padding: 0 15px;
+    border-right: solid 0.1px #fff;
+    cursor: pointer;
+  }
+
+  h2 {
+    font-size: 24px;
+    font-weight: bold;
+    letter-spacing: 5%;
+    color: #ffffff;
+    font-family: ${titleFont};
+    padding: 10px;
+    border-right: solid 0.1px #fff;
+    cursor: pointer;
   }
 `;
 
 const LogoutContainer = styled.div`
-  position: relative;
-
+  position: fixed;
+  right: 0;
   width: 100px;
 `;
 

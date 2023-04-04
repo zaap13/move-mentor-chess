@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Container, Main, Title } from "../../assets/styles/styles";
 import Header from "../../components/Header/Header";
 import useToken from "../../hooks/useToken";
-import { BsPlusSquare } from "react-icons/bs";
+import { BsPlus } from "react-icons/bs";
 
 import { getUserCourses } from "../../services/courseApi";
 import CourseBox from "./CourseBox";
@@ -30,17 +30,21 @@ export default function DashBoard() {
 
       <Main>
         <Container>
-          <Title> Seus Cursos</Title>
+          <Title>Seus Cursos</Title>
           {userCourses.length ? (
             userCourses.map((c) => <CourseBox key={c.id} course={c} />)
           ) : (
-            <Text onClick={() => navigate("/courses")}>
+            <NoCourses>
               <p>
-                Você ainda não se cadastrou em nenhum curso, escolha um agora
-                mesmo!
+                Você ainda não se cadastrou em nenhum curso.
+                <br />
+                Clique no botão abaixo para ver os cursos disponíveis.
               </p>
-              <BsPlusSquare />
-            </Text>
+              <Button onClick={() => navigate("/courses")}>
+                <BsPlus />
+                Ver Cursos
+              </Button>
+            </NoCourses>
           )}
         </Container>
       </Main>
@@ -48,25 +52,42 @@ export default function DashBoard() {
   );
 }
 
-const Text = styled.div`
+const NoCourses = styled.div`
   display: flex;
-  font-size: 50px;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  border: solid 1px #ffffff;
-  border-radius: 5px;
-  padding: 5px;
+  height: 100%;
   color: #ffffff;
+  text-align: center;
+  font-size: 20px;
+  line-height: 1.5;
+
+  p {
+    margin-bottom: 20px;
+  }
+`;
+
+const Button = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #00b2ff;
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 600;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 15px;
+  transition: background-color 0.2s ease-in-out;
 
   :hover {
-    background-color: #c5c5c5;
-    color: #000;
+    background-color: #008cc9;
     cursor: pointer;
   }
-  p {
-    font-weight: 400;
-    font-size: 17px;
-    line-height: 20px;
-    text-align: left;
+
+  svg {
+    margin-right: 10px;
+    font-size: 20px;
   }
 `;

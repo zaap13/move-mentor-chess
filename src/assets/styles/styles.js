@@ -80,14 +80,21 @@ export const FormBox = styled.div`
   button {
     width: 100%;
     height: 55px;
-    background: #1877f2;
-    border-radius: 5px;
     font-weight: 700;
-    font-size: 22px;
-    line-height: 33px;
-    cursor: pointer;
-    color: #ffffff;
     font-family: ${titleFont};
+    background-color: #000;
+    color: #2f80ed;
+    border: none;
+    border-radius: 0.5rem;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    border: 2px solid #2f80ed;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+
+    &:hover {
+      background-color: #2b72c3;
+    }
   }
 
   @media (min-width: 768px) {
@@ -112,14 +119,21 @@ export const Form = styled.form`
   button {
     width: 100%;
     height: 55px;
-    background: #1877f2;
-    border-radius: 5px;
-    font-weight: 700;
-    font-size: 22px;
-    line-height: 33px;
+    background-color: #000;
+    color: #2f80ed;
+    border: none;
+    border-radius: 0.5rem;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    border: 2px solid #2f80ed;
     cursor: pointer;
-    color: #ffffff;
+    transition: background-color 0.2s ease-in-out;
     font-family: ${titleFont};
+
+
+    &:hover {
+      background-color: #2b72c3;
+    }
   }
 `;
 
@@ -225,14 +239,4 @@ export const UserImg = styled.img`
     width: 50px;
     height: 50px;
   }
-`;
-
-export const ButtonDiv = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 7px;
-  position: absolute;
-  top: 0;
-  right: 0;
-  padding: 10px;
 `;

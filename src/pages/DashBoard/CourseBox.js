@@ -4,12 +4,12 @@ import { CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import { titleFont } from "../../constants/fonts";
 import { useNavigate } from "react-router-dom";
+import { FaCheck } from "react-icons/fa";
 
 export default function CourseBox({ course }) {
   const [showLessons, setShowLessons] = useState(false);
   const [progress, setProgress] = useState(0);
   const navigate = useNavigate();
-
 
   useEffect(() => {
     const progress = (
@@ -37,13 +37,13 @@ export default function CourseBox({ course }) {
             text={`${progress}%`}
             styles={{
               path: {
-                stroke: "#1abc9c",
+                stroke: "#2f80ed",
               },
               trail: {
-                stroke: "#3d3d3d",
+                stroke: "#000",
               },
               text: {
-                fill: "#ffffff",
+                fill: "#fff",
                 fontSize: "18px",
                 fontWeight: "bold",
               },
@@ -58,7 +58,10 @@ export default function CourseBox({ course }) {
           <LessonList>
             {course.lessons.map((l) => (
               <Lesson key={l.id} onClick={() => navigate(`/lesson/${l.id}`)}>
-                {l.title} - {l.progresses[0]?.completed ? "OK" : "X"}
+                <LessonTitle>{l.title}</LessonTitle>
+                <LessonStatus completed={l.progresses[0]?.completed}>
+                  {l.progresses[0]?.completed && <FaCheck color="green" />}
+                </LessonStatus>
               </Lesson>
             ))}
           </LessonList>
@@ -70,6 +73,7 @@ export default function CourseBox({ course }) {
 
 const Course = styled.div`
   display: flex;
+  position: relative;
   align-items: center;
   width: 100%;
   padding: 10px;
@@ -80,6 +84,8 @@ const Course = styled.div`
 `;
 
 const ImageContainer = styled.div`
+  position: absolute;
+  top: 10px;
   width: 100px;
   height: 100px;
   margin-right: 10px;
@@ -95,6 +101,8 @@ const ImageContainer = styled.div`
 
 const CourseDetails = styled.div`
   font-family: ${titleFont};
+  margin-left: 110px;
+  gap: 5px;
   display: flex;
   flex-direction: column;
   flex-grow: 1;
@@ -145,27 +153,39 @@ const Arrow = styled.div`
 `;
 
 const LessonList = styled.ul`
+  position: relative;
+  width: 100%;
   list-style: none;
-  padding: 0;
   margin: 0;
-  margin-top: 10px;
-  background-color: #403a5f;
+  padding: 0;
   border-radius: 5px;
-  padding: 10px;
-  gap: 5px;
+  background-color: #403a5f;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
 `;
 
 const Lesson = styled.li`
-  color: #ffffff;
-  font-size: 16px;
-  margin-bottom: 5px;
-  :hover {
-    background-color: #313143;
-    border: 0.1px solid #ffffff;
-    cursor: pointer;
-  }
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  font-size: 18px;
+  color: #fff;
+  border-bottom: 1px solid #ccc;
 
   &:last-child {
-    margin-bottom: 0;
+    border-bottom: none;
   }
+
+  &:hover {
+    background-color: #2b72c3;
+    cursor: pointer;
+  }
+`;
+
+const LessonTitle = styled.div`
+  margin-right: 10px;
+`;
+
+const LessonStatus = styled.div`
+  color: ${({ completed }) => (completed ? "#4CAF50" : "#E65100")};
 `;
