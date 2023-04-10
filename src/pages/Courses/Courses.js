@@ -36,7 +36,7 @@ export default function Courses() {
                   <CourseTitle>{course.title}</CourseTitle>
                   <CourseDescription>{course.description}</CourseDescription>
                   <CourseButton
-                    onClick={() => navigate(`/course/${course.id}`)}
+                    onClick={() => navigate(`/courses/${course.id}`)}
                   >
                     Saiba mais
                   </CourseButton>
