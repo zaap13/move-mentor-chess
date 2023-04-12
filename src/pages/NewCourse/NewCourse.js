@@ -39,6 +39,7 @@ function FenInputChessboard() {
       const newFen = e.target.value;
 
       try {
+        setGame(new Chess(newFen));
         setFen(newFen);
         setInputValue(newFen);
       } catch (error) {
