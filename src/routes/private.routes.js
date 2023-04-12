@@ -5,6 +5,7 @@ import Lesson from "../pages/Lesson/Lesson";
 import UserPage from "../pages/UserPage/UserPage";
 import CourseDetail from "../pages/CourseDetail/CourseDetail";
 import NewCourse from "../pages/NewCourse/NewCourse";
+import NewLesson from "../pages/NewLesson/NewLesson";
 
 export default function PrivateRoutes() {
   return (
@@ -15,6 +16,8 @@ export default function PrivateRoutes() {
       <Route path="/courses" element={<Courses />} />
       <Route path="/courses/:id" element={<CourseDetail />} />
       <Route path="/courses/new" element={<NewCourse />} />
+      <Route path="/lesson/new" element={<NewLesson />} />
+
       {<Route path="*" element={<Navigate to="/dashboard" />} />}
     </Routes>
   );
