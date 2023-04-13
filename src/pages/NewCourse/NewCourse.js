@@ -93,7 +93,7 @@ const Container = styled.div`
     line-height: 49px;
   }
 
-  @media (max-width: 768px) {
+  @media (max-width: 868px) {
     width: 100vw;
   }
 `;

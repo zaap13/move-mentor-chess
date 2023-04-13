@@ -45,7 +45,7 @@ export const LogoBox = styled.div`
     border-radius: 100px;
   }
 
-  @media (max-width: 768px) {
+  @media (max-width: 868px) {
     display: none;
   }
 `;
@@ -189,7 +189,7 @@ export const Main = styled.main`
   align-items: center;
   flex-wrap: nowrap;
   flex-direction: column;
-  @media (max-width: 768px) {
+  @media (max-width: 868px) {
     width: 100vw;
   }
 `;
@@ -217,7 +217,7 @@ export const Container = styled.div`
   align-items: flex-start;
   gap: 15px;
 
-  @media (max-width: 768px) {
+  @media (max-width: 868px) {
     width: 100vw;
   }
 `;

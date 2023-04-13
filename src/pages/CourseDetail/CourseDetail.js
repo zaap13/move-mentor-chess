@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { Main, Title } from "../../assets/styles/styles";
@@ -22,6 +22,7 @@ export default function CourseDetail() {
   const user = useUser();
   const navigate = useNavigate();
   const [newLesson, setNewLesson] = useState(false);
+  const lessonsRef = useRef(null);
 
   async function loadCourse(id, token) {
     const result = await getCourse(id, token);
@@ -32,6 +33,12 @@ export default function CourseDetail() {
   useEffect(() => {
     loadCourse(id, token);
   }, [id, token]);
+
+  useEffect(() => {
+    if (newLesson) {
+      lessonsRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [newLesson]);
 
   async function handleNewLesson() {
     setNewLesson((newLesson) => (newLesson === true ? false : true));
@@ -82,7 +89,7 @@ export default function CourseDetail() {
           <LessonsList>
             <h2>Variantes:</h2>
             {user.id === course.creatorId && (
-              <SubscribeButton onClick={handleNewLesson}>
+              <SubscribeButton ref={lessonsRef} onClick={handleNewLesson}>
                 Adicionar nova aula/variante
               </SubscribeButton>
             )}
@@ -122,7 +129,7 @@ const Container = styled.div`
     line-height: 49px;
   }
 
-  @media (max-width: 768px) {
+  @media (max-width: 868px) {
     width: 100vw;
   }
 `;

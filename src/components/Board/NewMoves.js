@@ -1,7 +1,7 @@
-export default function NewMoves({ setBody }) {
+export default function NewMoves({ setBody, position }) {
   return (
     <>
-      <>ANALISE</>
+      <>{position}</>
     </>
   );
 }

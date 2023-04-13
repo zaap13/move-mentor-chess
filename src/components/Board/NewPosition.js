@@ -32,6 +32,20 @@ export default function NewPosition({ setBody }) {
   const [castleOptions, setCastleOptions] = useState("KQkq");
   const [player, setPlayer] = useState("w");
 
+  const [fenBoard, setFenBoard] = useState(
+    "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR"
+  );
+  const [fenEnPassant, setFenEnPassant] = useState("-");
+  const [fenHalfMoves, setfenHalfMoves] = useState(0);
+  const [fenFullMoves, setFenFullMoves] = useState(1);
+
+  useEffect(() => {
+    const newFen = `${fenBoard} ${player} ${castleOptions} ${fenEnPassant} ${fenHalfMoves} ${fenFullMoves}`;
+
+    setFen(newFen);
+    setInputValue(newFen);
+  }, [fenBoard, castleOptions, player]);
+
   const pieceButtons = [
     { label: "Peão Branco", value: "wP", icon: FaChessPawn },
     { label: "Cavalo Branco", value: "wN", icon: FaChessKnight },
@@ -52,12 +66,11 @@ export default function NewPosition({ setBody }) {
     } else {
       newOptions += option;
     }
+    if (newOptions === "") {
+      newOptions = "-";
+    }
     setCastleOptions(newOptions);
   }
-
-  useEffect(() => {
-    onChange(position);
-  }, [castleOptions, player]);
 
   function handleFenChange(e) {
     if (e.keyCode === 13) {
@@ -190,6 +203,13 @@ export default function NewPosition({ setBody }) {
         ? Math.ceil(halfMoves / 2) + 1
         : Math.ceil(halfMoves / 2)) + (player === "b" ? 1 : 0);
 
+    setFenBoard(fenBoard);
+    setPlayer(fenPlayer);
+    setCastleOptions(fenCastling);
+    setFenEnPassant(fenEnPassant);
+    setfenHalfMoves(fenHalfMoves);
+    setFenFullMoves(fenFullMoves);
+
     return `${fenBoard} ${fenPlayer} ${fenCastling} ${fenEnPassant} ${fenHalfMoves} ${fenFullMoves}`;
   }
 
@@ -252,7 +272,7 @@ export default function NewPosition({ setBody }) {
             }
           >
             <FaChess
-              color={orientation === "white" ? "white" : ""}
+              color={orientation === "white" ? "white" : "black"}
               fontSize="35px"
               title={"Inverter Jogador"}
               cursor={"pointer"}
@@ -263,7 +283,7 @@ export default function NewPosition({ setBody }) {
           </label>
           <label onClick={() => setPlayer(player === "w" ? "b" : "w")}>
             <FaGamepad
-              color={player === "w" ? "white" : ""}
+              color={player === "w" ? "white" : "black"}
               fontSize="35px"
               title={`Primeiro movimento será das ${
                 player === "w" ? "Brancas" : "Pretas"
@@ -307,7 +327,7 @@ export default function NewPosition({ setBody }) {
           <label
             onClick={() => {
               setGame(new Chess("4k3/8/8/8/8/8/8/4K3 w KQkq - 0 1"));
-              setCastleOptions("");
+              setCastleOptions("-");
             }}
           >
             <FaTrashRestore
@@ -367,14 +387,14 @@ const Pieces = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  height: 500px;
+  height: 600px;
   justify-content: space-evenly;
 
   button {
     display: flex;
     align-items: center;
     width: 100%;
-    height: 45px;
+    height: fit-content;
     color: #2f80ed;
     border: none;
     border-radius: 0.5rem;
@@ -403,6 +423,8 @@ const Pieces = styled.div`
 
 const Container = styled.div`
   display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 const Board = styled.div`
