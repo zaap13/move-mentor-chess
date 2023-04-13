@@ -15,8 +15,12 @@ import {
   FaChess,
   FaGamepad,
 } from "react-icons/fa";
+import { FcNext } from "react-icons/fc";
+import { titleFont } from "../../constants/fonts";
+import { Text } from "../../assets/styles/styles";
+import Swal from "sweetalert2";
 
-export default function NewPosition() {
+export default function NewPosition({ setBody }) {
   const [fen, setFen] = useState(
     "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"
   );
@@ -86,12 +90,11 @@ export default function NewPosition() {
   }
 
   function onSquareClick(square) {
-    // Aqui você pode adicionar a lógica para adicionar uma peça no quadrado clicado
     try {
       if (!position[square] && selectedPiece) {
         const newposition = {
           ...position,
-          [square]: selectedPiece, // adiciona um cavalo branco na posição clicada
+          [square]: selectedPiece,
         };
         const fen = objToFen(newposition, player, castleOptions, "-", 0);
         setGame(new Chess(fen));
@@ -191,138 +194,172 @@ export default function NewPosition() {
   }
 
   return (
-    <Container>
-      <Pieces>
-        {pieceButtons.map((button) => (
-          <button
-            key={button.value}
-            onClick={() => handlePieceSelect(button.value)}
-            style={{
-              backgroundColor: selectedPiece === button.value ? "#0069d9" : "",
-              borderRadius: "5px",
+    <>
+      <Text>
+        {" -"} Para adicionar novas peças selecione-a e clique na casa desejada,
+        para excluir use o botão direito.
+      </Text>
+      <Container>
+        <Pieces>
+          {pieceButtons.map((button) => (
+            <button
+              key={button.value}
+              onClick={() => handlePieceSelect(button.value)}
+              style={{
+                backgroundColor:
+                  selectedPiece === button.value ? "#0069d9" : "",
+                borderRadius: "5px",
+              }}
+            >
+              {
+                <button.icon
+                  color={button.value.charAt(0) === "w" ? "white" : "black"}
+                  fontSize={"35px"}
+                  title={button.label}
+                  cursor={"pointer"}
+                />
+              }
+            </button>
+          ))}
+        </Pieces>
+        <Board>
+          <Chessboard
+            boardWidth={500}
+            position={game.fen()}
+            onPieceDrop={onPieceDrop}
+            getPositionObject={onChange}
+            onSquareClick={onSquareClick}
+            onSquareRightClick={onSquareRightClick}
+            customBoardStyle={{
+              borderRadius: "4px",
+              boxShadow: "0 2px 10px rgba(0, 0, 0, 0.5)",
+            }}
+            customDarkSquareStyle={{ backgroundColor: "#779952" }}
+            customLightSquareStyle={{ backgroundColor: "#edeed1" }}
+            boardOrientation={orientation}
+          />
+          <input
+            type="text"
+            value={inputValue}
+            onChange={(e) => setInputValue(e.target.value)}
+            onKeyDown={handleFenChange}
+          />
+        </Board>
+        <Pieces>
+          <label
+            onClick={() =>
+              setOrientation(orientation === "white" ? "black" : "white")
+            }
+          >
+            <FaChess
+              color={orientation === "white" ? "white" : ""}
+              fontSize="35px"
+              title={"Inverter Jogador"}
+              cursor={"pointer"}
+            />
+            <span>{`Jogador controla: ${
+              orientation === "white" ? "Brancas" : "Pretas"
+            }`}</span>
+          </label>
+          <label onClick={() => setPlayer(player === "w" ? "b" : "w")}>
+            <FaGamepad
+              color={player === "w" ? "white" : ""}
+              fontSize="35px"
+              title={`Primeiro movimento será das ${
+                player === "w" ? "Brancas" : "Pretas"
+              }`}
+              cursor={"pointer"}
+            />
+            <span>{player === "w" ? "Brancas Jogam!" : "Pretas Jogam!"}</span>
+          </label>
+          <label>
+            <input
+              type="checkbox"
+              checked={castleOptions.includes("K")}
+              onChange={() => handleCastleOptionChange("K")}
+            />
+            <span>Brancas: Roque menor</span>
+          </label>
+          <label>
+            <input
+              type="checkbox"
+              checked={castleOptions.includes("Q")}
+              onChange={() => handleCastleOptionChange("Q")}
+            />
+            <span>Brancas: Roque maior</span>{" "}
+          </label>
+          <label>
+            <input
+              type="checkbox"
+              checked={castleOptions.includes("k")}
+              onChange={() => handleCastleOptionChange("k")}
+            />
+            <span>Pretas: Roque menor</span>
+          </label>
+          <label>
+            <input
+              type="checkbox"
+              checked={castleOptions.includes("q")}
+              onChange={() => handleCastleOptionChange("q")}
+            />
+            <span>Pretas: Roque maior</span>
+          </label>
+          <label
+            onClick={() => {
+              setGame(new Chess("4k3/8/8/8/8/8/8/4K3 w KQkq - 0 1"));
+              setCastleOptions("");
             }}
           >
-            {
-              <button.icon
-                color={button.value.charAt(0) === "w" ? "white" : ""}
-                fontSize={"35px"}
-                title={button.label}
-                cursor={"pointer"}
-              />
-            }
+            <FaTrashRestore
+              color="white"
+              fontSize="35px"
+              title="Limpar Tabuleiro"
+              cursor={"pointer"}
+            />
+            <span>Limpar Tabuleiro</span>
+          </label>
+          <label
+            onClick={() => {
+              setGame(new Chess());
+              setCastleOptions("qkQK");
+            }}
+          >
+            <FaUndo
+              color="white"
+              fontSize="35px"
+              title="Posição Inicial"
+              cursor={"pointer"}
+            />
+            <span>Posição Inicial</span>
+          </label>
+          <button
+            onClick={() => {
+              Swal.fire({
+                titleText:
+                  "Deseja salvar as alterações e ir para a próxima etapa?",
+                showCancelButton: true,
+                confirmButtonText: "Salvar",
+              }).then((result) => {
+                if (result.isConfirmed) {
+                  Swal.fire("Ok!", "", "success").then(() => {
+                    setBody((prevState) => ({
+                      ...prevState,
+                      position: inputValue,
+                      userColor: orientation === "white" ? "w" : "b",
+                    }));
+                  });
+                }
+              });
+            }}
+          >
+            Definir posição inicial{" - - -"}
+            <FcNext />
           </button>
-        ))}
-      </Pieces>
-      <Board>
-        <Chessboard
-          boardWidth={500}
-          position={game.fen()}
-          onPieceDrop={onPieceDrop}
-          getPositionObject={onChange}
-          onSquareClick={onSquareClick}
-          onSquareRightClick={onSquareRightClick}
-          customBoardStyle={{
-            borderRadius: "4px",
-            boxShadow: "0 2px 10px rgba(0, 0, 0, 0.5)",
-          }}
-          customDarkSquareStyle={{ backgroundColor: "#779952" }}
-          customLightSquareStyle={{ backgroundColor: "#edeed1" }}
-          boardOrientation={orientation}
-        />
-        <input
-          type="text"
-          value={inputValue}
-          onChange={(e) => setInputValue(e.target.value)}
-          onKeyDown={handleFenChange}
-        />
-      </Board>
-      <Pieces>
-        <label
-          onClick={() =>
-            setOrientation(orientation === "white" ? "black" : "white")
-          }
-        >
-          <FaChess
-            color={orientation === "white" ? "white" : ""}
-            fontSize="35px"
-            title="Inverter Jogador"
-            cursor={"pointer"}
-          />
-          <span>Inverter posição</span>
-        </label>
-        <label onClick={() => setPlayer(player === "w" ? "b" : "w")}>
-          <FaGamepad
-            color={player === "w" ? "white" : ""}
-            fontSize="35px"
-            title="Inverter Jogador"
-            cursor={"pointer"}
-          />
-          <span>{player === "w" ? "Brancas Jogam!" : "Pretas Jogam!"}</span>
-        </label>
-        <label>
-          <input
-            type="checkbox"
-            checked={castleOptions.includes("K")}
-            onChange={() => handleCastleOptionChange("K")}
-          />
-          <span>Brancas: Roque menor</span>
-        </label>
-        <label>
-          <input
-            type="checkbox"
-            checked={castleOptions.includes("Q")}
-            onChange={() => handleCastleOptionChange("Q")}
-          />
-          <span>Brancas: Roque maior</span>{" "}
-        </label>
-        <label>
-          <input
-            type="checkbox"
-            checked={castleOptions.includes("k")}
-            onChange={() => handleCastleOptionChange("k")}
-          />
-          <span>Pretas: Roque menor</span>
-        </label>
-        <label>
-          <input
-            type="checkbox"
-            checked={castleOptions.includes("q")}
-            onChange={() => handleCastleOptionChange("q")}
-          />
-          <span>Pretas: Roque maior</span>
-        </label>
-        <label
-          onClick={() => {
-            setGame(new Chess("4k3/8/8/8/8/8/8/4K3 w KQkq - 0 1"));
-            setCastleOptions("");
-          }}
-        >
-          <FaTrashRestore
-            color="white"
-            fontSize="35px"
-            title="Limpar Tabuleiro"
-            cursor={"pointer"}
-          />
-          <span>Limpar Tabuleiro</span>
-        </label>
-        <label
-          onClick={() => {
-            setGame(new Chess());
-            setCastleOptions("qkQK");
-          }}
-        >
-          <FaUndo
-            color="white"
-            fontSize="35px"
-            title="Posição Inicial"
-            cursor={"pointer"}
-          />
-          <span>Posição Inicial</span>
-        </label>
-      </Pieces>
+        </Pieces>
 
-      <ToastContainer theme="dark" />
-    </Container>
+        <ToastContainer theme="dark" />
+      </Container>
+    </>
   );
 }
 
@@ -332,6 +369,26 @@ const Pieces = styled.div`
   align-items: flex-start;
   height: 500px;
   justify-content: space-evenly;
+
+  button {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 45px;
+    color: #2f80ed;
+    border: none;
+    border-radius: 0.5rem;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    border: 2px solid #2f80ed;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+    font-family: ${titleFont};
+
+    &:hover {
+      background-color: #2b72c3;
+    }
+  }
 
   label {
     width: 100%;

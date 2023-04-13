@@ -109,10 +109,13 @@ export const Form = styled.form`
   flex-direction: column;
   gap: 13px;
   width: 100%;
+  textarea {
+    resize: none;
+  }
 
   input {
     width: 100%;
-    height: 65px;
+    height: 45px;
     background: #ffffff;
     border-radius: 6px;
   }
@@ -129,7 +132,6 @@ export const Form = styled.form`
     cursor: pointer;
     transition: background-color 0.2s ease-in-out;
     font-family: ${titleFont};
-
 
     &:hover {
       background-color: #2b72c3;
@@ -195,7 +197,7 @@ export const Main = styled.main`
 export const Title = styled.h2`
   font-family: ${titleFont};
   font-weight: 700;
-  font-size: 33px;
+  font-size: 32px;
   line-height: 49px;
   color: #ffffff;
   margin-top: 45px;
