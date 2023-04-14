@@ -10,7 +10,6 @@ export async function getLesson(id, token) {
 }
 
 export async function completeLesson(id, token) {
-  console.log(id, token);
   const response = await api.post(
     `/lesson/complete/${id}`,
     {},
@@ -20,5 +19,14 @@ export async function completeLesson(id, token) {
       },
     }
   );
+  return response.data;
+}
+
+export async function createLesson(body, token) {
+  const response = await api.post(`/lesson`, body, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
   return response.data;
 }

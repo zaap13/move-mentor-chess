@@ -9,20 +9,18 @@ const Lesson = styled.div`
 `;
 
 export default function Game({ lesson }) {
-  const { position, messages = {}, moves = [] } = lesson;
   const [variant, setVariant] = useState(null);
-  const game = new Chess(position);
 
   useEffect(() => {
     const timer = setTimeout(() => {
       setVariant({
-        fen: game.fen(),
-        moves: moves,
-        msg: messages,
+        fen: lesson.position,
+        moves: lesson.moves,
+        msg: lesson.messages,
       });
     }, 1000);
     return () => clearTimeout(timer);
-  }, [game.fen()]);
+  }, [lesson]);
 
   if (!variant) {
     return <div>Loading...</div>;

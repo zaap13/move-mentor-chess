@@ -19,6 +19,7 @@ import { FcNext } from "react-icons/fc";
 import { titleFont } from "../../constants/fonts";
 import { Text } from "../../assets/styles/styles";
 import Swal from "sweetalert2";
+import { SubscribeButton } from "../../pages/CourseDetail/CourseDetail";
 
 export default function NewPosition({ setBody }) {
   const [fen, setFen] = useState(
@@ -219,6 +220,7 @@ export default function NewPosition({ setBody }) {
         {" -"} Para adicionar novas peças selecione-a e clique na casa desejada,
         para excluir use o botão direito.
       </Text>
+      <br />
       <Container>
         <Pieces>
           {pieceButtons.map((button) => (
@@ -352,7 +354,7 @@ export default function NewPosition({ setBody }) {
             />
             <span>Posição Inicial</span>
           </label>
-          <button
+          <SubscribeButton
             onClick={() => {
               Swal.fire({
                 titleText:
@@ -372,9 +374,8 @@ export default function NewPosition({ setBody }) {
               });
             }}
           >
-            Definir posição inicial{" - - -"}
-            <FcNext />
-          </button>
+            Salvar e avançar
+          </SubscribeButton>
         </Pieces>
 
         <ToastContainer theme="dark" />
@@ -387,28 +388,8 @@ const Pieces = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  height: 600px;
+  height: 555px;
   justify-content: space-evenly;
-
-  button {
-    display: flex;
-    align-items: center;
-    width: 100%;
-    height: fit-content;
-    color: #2f80ed;
-    border: none;
-    border-radius: 0.5rem;
-    padding: 0.5rem 1rem;
-    font-size: 1rem;
-    border: 2px solid #2f80ed;
-    cursor: pointer;
-    transition: background-color 0.2s ease-in-out;
-    font-family: ${titleFont};
-
-    &:hover {
-      background-color: #2b72c3;
-    }
-  }
 
   label {
     width: 100%;

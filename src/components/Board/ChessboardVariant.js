@@ -182,7 +182,7 @@ export default function ChessboardVariant({ variant, lesson }) {
             }, {}),
           }}
         />
-        <ToastContainer theme="colored" />
+        <ToastContainer theme="dark" />
         <p>{`É ${
           currentColor === lesson.userColor ? "sua vez" : "vez do oponente"
         } jogar de ${currentColor === "w" ? "(Brancas)" : "(Negras)"}`}</p>
@@ -232,7 +232,7 @@ const ChessTable = styled.div`
   }
 `;
 
-const InfoContainer = styled.div`
+export const InfoContainer = styled.div`
   background-color: #1c1c1c;
   color: #fff;
   padding: 20px;
@@ -268,7 +268,7 @@ const InfoContainer = styled.div`
     background-color: #333;
     border: 0.1px solid #fff;
     padding: 10px;
-
+    overflow: scroll;
     strong {
       font-weight: bold;
     }

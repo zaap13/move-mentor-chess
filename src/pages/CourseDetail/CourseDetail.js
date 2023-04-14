@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { Main, Title } from "../../assets/styles/styles";
@@ -12,7 +12,7 @@ import {
   subscribeCourse,
 } from "../../services/courseApi";
 import useUser from "../../hooks/useUser";
-import NewLesson from "../NewLesson/NewLesson";
+import NewLesson from "./NewLesson";
 
 export default function CourseDetail() {
   const [course, setCourse] = useState(null);
@@ -22,7 +22,6 @@ export default function CourseDetail() {
   const user = useUser();
   const navigate = useNavigate();
   const [newLesson, setNewLesson] = useState(false);
-  const lessonsRef = useRef(null);
 
   async function loadCourse(id, token) {
     const result = await getCourse(id, token);
@@ -33,12 +32,6 @@ export default function CourseDetail() {
   useEffect(() => {
     loadCourse(id, token);
   }, [id, token]);
-
-  useEffect(() => {
-    if (newLesson) {
-      lessonsRef.current.scrollIntoView({ behavior: "smooth" });
-    }
-  }, [newLesson]);
 
   async function handleNewLesson() {
     setNewLesson((newLesson) => (newLesson === true ? false : true));
@@ -88,19 +81,19 @@ export default function CourseDetail() {
 
           <LessonsList>
             <h2>Variantes:</h2>
-            {user.id === course.creatorId && (
-              <SubscribeButton ref={lessonsRef} onClick={handleNewLesson}>
-                Adicionar nova aula/variante
-              </SubscribeButton>
-            )}
-
-            {newLesson && <NewLesson courseId={course.id} />}
-
             {course.lessons.map((lesson) => (
               <Lesson key={lesson.id}>
                 <LessonTitle>{lesson.title}</LessonTitle>
               </Lesson>
             ))}
+            {user.id === course.creatorId && (
+              <SubscribeButton onClick={handleNewLesson}>
+                Adicionar nova aula/variante
+              </SubscribeButton>
+            )}
+            {newLesson && (
+              <NewLesson courseId={course.id} loadCourse={loadCourse} />
+            )}
           </LessonsList>
         </Container>
       </Main>
@@ -182,7 +175,7 @@ const LessonTitle = styled.h2`
   }
 `;
 
-const SubscribeButton = styled.button`
+export const SubscribeButton = styled.button`
   background-color: #000;
   color: #2f80ed;
   border: none;
@@ -199,7 +192,7 @@ const SubscribeButton = styled.button`
   }
 `;
 
-const DeleteButton = styled.button`
+export const DeleteButton = styled.button`
   background-color: #000;
   color: #ff4d4d;
   border: none;

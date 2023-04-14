@@ -35,7 +35,7 @@ export default function NewCourse() {
       <Container>
         <h2>Novo curso</h2>
         <Form onSubmit={handleSubmit}>
-          <label htmlFor="title">Title</label>
+          <label htmlFor="title">Título</label>
           <input
             type="text"
             id="title"
@@ -43,14 +43,14 @@ export default function NewCourse() {
             value={formData.title}
             onChange={handleInputChange}
           />
-          <label htmlFor="description">Description</label>
+          <label htmlFor="description">Descrição</label>
           <textarea
             id="description"
             name="description"
             value={formData.description}
             onChange={handleInputChange}
           ></textarea>
-          <label htmlFor="image">Image URL</label>
+          <label htmlFor="image">Imagem (url)</label>
           <input
             type="text"
             id="image"
@@ -58,7 +58,7 @@ export default function NewCourse() {
             value={formData.image}
             onChange={handleInputChange}
           />
-          <label htmlFor="category">Category</label>
+          <label htmlFor="category">Categoria</label>
           <select
             id="category"
             name="category"

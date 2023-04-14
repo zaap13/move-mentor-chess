@@ -15,7 +15,6 @@ export default function Courses() {
   async function loadCourses(token) {
     const result = await getCourses(token);
     setCourses(result);
-    console.log(result);
   }
 
   useEffect(() => {

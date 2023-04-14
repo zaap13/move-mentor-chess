@@ -18,6 +18,8 @@ export default function Header({ isFixed }) {
     <HeaderStyle isFixed={isFixed}>
       <h1 onClick={() => navigate("/")}>MoveMentor</h1>
       <h2 onClick={() => navigate("/courses")}>Cursos</h2>
+      <h2 onClick={() => navigate("/courses/new")}>Novo curso</h2>
+
       <LogoutContainer>
         <IconImageProfile onClick={() => setClicked(!clicked)}>
           <GoChevronDown
