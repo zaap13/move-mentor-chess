@@ -1,0 +1,30 @@
+services:
+  react:
+    container_name: react
+    build: .
+    image: frontend
+    volumes:
+      - react-volume:/var/www/html
+    env_file:
+      - .env  
+  
+  nginx:
+    container_name: nginx
+    build: ./nginx
+    image: nginx
+    networks:
+      - movementor
+    ports:
+      - 80:80
+    volumes:
+      - react-volume:/var/www/html
+    depends_on:
+      - react
+
+networks:
+  movementor:
+    name: movementor
+    external: true
+
+volumes:
+  react-volume:
