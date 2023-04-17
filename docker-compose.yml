@@ -1,24 +1,19 @@
-networks:
-  movementor:
-    name: movementor
-    external: true
-
 services:
   react:
     container_name: react
     build: .
-    image: frontend
+    image: fullstack/frontend
     volumes:
       - react-volume:/var/www/html
     env_file:
       - .env
-  
+
   nginx:
     container_name: nginx
     build: ./nginx
-    image: nginx
+    image: fullstack/nginx
     networks:
-      - movementor
+      - fullstack-network
     ports:
       - 80:80
     volumes:
@@ -26,6 +21,10 @@ services:
     depends_on:
       - react
 
+networks:
+  fullstack-network:
+    name: fullstack-network
+    external: true
 
 volumes:
   react-volume:
