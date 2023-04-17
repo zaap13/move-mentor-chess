@@ -1,3 +1,8 @@
+networks:
+  movementor:
+    name: movementor
+    external: true
+
 services:
   react:
     container_name: react
@@ -6,7 +11,7 @@ services:
     volumes:
       - react-volume:/var/www/html
     env_file:
-      - .env  
+      - .env
   
   nginx:
     container_name: nginx
@@ -21,10 +26,6 @@ services:
     depends_on:
       - react
 
-networks:
-  movementor:
-    name: movementor
-    external: true
 
 volumes:
   react-volume:
