@@ -6,6 +6,8 @@ import "react-toastify/dist/ReactToastify.css";
 import { completeLesson } from "../../services/lessonApi";
 import useToken from "../../hooks/useToken";
 import styled from "styled-components";
+import { SubscribeButton } from "../../pages/CourseDetail/CourseDetail";
+import { useNavigate } from "react-router-dom";
 
 export default function ChessboardVariant({ variant, lesson }) {
   const [chess, setChess] = useState(new Chess(variant.fen));
@@ -17,6 +19,7 @@ export default function ChessboardVariant({ variant, lesson }) {
   const [arrow, setArrow] = useState([]);
   const [dragPieces, setDragPieces] = useState(true);
   const [isDemo, setIsDemo] = useState(true);
+  const navigate = useNavigate();
   const token = useToken();
 
   function resetGame() {
@@ -199,6 +202,7 @@ export default function ChessboardVariant({ variant, lesson }) {
           <span>{variant.msg[moves[nextMoveIndex - 1]]}</span>
         </div>
         <p>{lesson.description}</p>
+        <SubscribeButton onClick={() => navigate(`/`)}>Voltar</SubscribeButton>
       </InfoContainer>
     </Main>
   );
