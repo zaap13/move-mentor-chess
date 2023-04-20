@@ -246,7 +246,6 @@ export default function NewPosition({ setBody }) {
         </Pieces>
         <Board>
           <Chessboard
-            boardWidth={500}
             position={game.fen()}
             onPieceDrop={onPieceDrop}
             getPositionObject={onChange}
@@ -409,6 +408,7 @@ const Container = styled.div`
 `;
 
 const Board = styled.div`
+  width: 500px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -416,6 +416,15 @@ const Board = styled.div`
   input {
     margin: 10px;
     width: 500px;
+    background-color: #fff;
+  }
+
+  @media (max-width: 868px) {
+    width: 60%;
+  }
+  input {
+    margin: 5px;
+    width: 35vw;
     background-color: #fff;
   }
 `;

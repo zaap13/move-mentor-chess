@@ -86,15 +86,15 @@ export default function CourseDetail() {
                 <LessonTitle>{lesson.title}</LessonTitle>
               </Lesson>
             ))}
-            {user.id === course.creatorId && (
-              <SubscribeButton onClick={handleNewLesson}>
-                Adicionar nova aula/variante
-              </SubscribeButton>
-            )}
-            {newLesson && (
-              <NewLesson courseId={course.id} loadCourse={loadCourse} />
-            )}
           </LessonsList>
+          {user.id === course.creatorId && (
+            <SubscribeButton onClick={handleNewLesson}>
+              Adicionar nova aula/variante
+            </SubscribeButton>
+          )}
+          {newLesson && (
+            <NewLesson courseId={course.id} loadCourse={loadCourse} />
+          )}
         </Container>
       </Main>
     </>

@@ -74,7 +74,6 @@ export default function NewMoves({ setBody, body, orientation, loadCourse }) {
     <Container>
       <Board>
         <Chessboard
-          boardWidth={555}
           position={pos}
           onPieceDrop={onPieceDrop}
           customBoardStyle={{
@@ -163,9 +162,14 @@ export default function NewMoves({ setBody, body, orientation, loadCourse }) {
 }
 
 const Board = styled.div`
+  width: 555px;
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  @media (max-width: 868px) {
+    width: 100vw;
+  }
 `;
 
 const Container = styled.div`

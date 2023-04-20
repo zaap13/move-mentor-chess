@@ -157,31 +157,35 @@ export default function ChessboardVariant({ variant, lesson }) {
   }
 
   return (
-    <>
+    <Main>
       <ChessTable>
-        <Chessboard
-          boardWidth={555}
-          position={chess.fen()}
-          onPieceDrop={nextMoveIndex < moves.length ? handleMove : null}
-          customArrows={arrow}
-          arePiecesDraggable={dragPieces}
-          customBoardStyle={{
-            borderRadius: "4px",
-            boxShadow: "0 2px 10px rgba(0, 0, 0, 0.5)",
-          }}
-          boardOrientation={lesson.userColor === "b" ? "black" : "white"}
-          customDarkSquareStyle={{ backgroundColor: "#779952" }}
-          customLightSquareStyle={{ backgroundColor: "#edeed1" }}
-          onMouseOverSquare={onMouseOverSquare}
-          highlightStyle={{ backgroundColor: "rgba(255, 255, 0, 0.4)" }}
-          customSquareStyles={{
-            [highlightedSquare]: { backgroundColor: "rgba(255, 255, 0, 0.4)" },
-            ...possibleMoves.reduce((obj, move) => {
-              obj[move] = { backgroundColor: "rgba(0, 255, 0, 0.4)" };
-              return obj;
-            }, {}),
-          }}
-        />
+        <Table>
+          <Chessboard
+            position={chess.fen()}
+            onPieceDrop={nextMoveIndex < moves.length ? handleMove : null}
+            customArrows={arrow}
+            arePiecesDraggable={dragPieces}
+            customBoardStyle={{
+              borderRadius: "4px",
+              boxShadow: "0 2px 10px rgba(0, 0, 0, 0.5)",
+            }}
+            boardOrientation={lesson.userColor === "b" ? "black" : "white"}
+            customDarkSquareStyle={{ backgroundColor: "#779952" }}
+            customLightSquareStyle={{ backgroundColor: "#edeed1" }}
+            onMouseOverSquare={onMouseOverSquare}
+            highlightStyle={{ backgroundColor: "rgba(255, 255, 0, 0.4)" }}
+            customSquareStyles={{
+              [highlightedSquare]: {
+                backgroundColor: "rgba(255, 255, 0, 0.4)",
+              },
+              ...possibleMoves.reduce((obj, move) => {
+                obj[move] = { backgroundColor: "rgba(0, 255, 0, 0.4)" };
+                return obj;
+              }, {}),
+            }}
+          />
+        </Table>
+
         <ToastContainer theme="dark" />
         <p>{`É ${
           currentColor === lesson.userColor ? "sua vez" : "vez do oponente"
@@ -190,15 +194,32 @@ export default function ChessboardVariant({ variant, lesson }) {
       </ChessTable>
       <InfoContainer>
         <h3>{lesson.title}</h3>
-        <p>{lesson.description}</p>
         <div>
           <strong>{moves[nextMoveIndex - 1]}</strong>
           <span>{variant.msg[moves[nextMoveIndex - 1]]}</span>
         </div>
+        <p>{lesson.description}</p>
       </InfoContainer>
-    </>
+    </Main>
   );
 }
+
+const Main = styled.main`
+  display: flex;
+
+  @media (max-width: 868px) {
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+  }
+`;
+
+const Table = styled.div`
+  width: 555px;
+  @media (max-width: 868px) {
+    width: 100vw;
+  }
+`;
 
 const ChessTable = styled.div`
   display: flex;
@@ -230,6 +251,25 @@ const ChessTable = styled.div`
       background-color: #0069d9;
     }
   }
+  @media (max-width: 868px) {
+    p {
+      font-size: 12px;
+      font-weight: 400;
+    }
+
+    h3 {
+      font-size: 14px;
+      font-weight: 400;
+      padding: 10px 20px;
+      text-align: center;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+
+      &:hover {
+        background-color: #0069d9;
+      }
+    }
+  }
 `;
 
 export const InfoContainer = styled.div`
@@ -237,10 +277,9 @@ export const InfoContainer = styled.div`
   color: #fff;
   padding: 20px;
   border-radius: 10px;
-  width: 350px;
-  height: 555px;
-  margin-left: 20px;
-  margin-top: 5px;
+  max-width: 350px;
+  height: 630px;
+  margin: 5px 20px 5px 20px;
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -276,5 +315,12 @@ export const InfoContainer = styled.div`
       color: #00c853;
       font-weight: bold;
     }
+  }
+
+  @media (max-width: 868px) {
+    max-width: 500px;
+    margin-top: 10px;
+    width: 100%;
+    height: fit-content;
   }
 `;

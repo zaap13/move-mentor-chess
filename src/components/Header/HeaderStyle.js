@@ -37,6 +37,20 @@ const HeaderStyle = styled.nav`
     border-right: solid 0.1px #fff;
     cursor: pointer;
   }
+
+  @media (max-width: 868px) {
+    h1 {
+      font-size: 28px;
+      padding: 0 5px 0 0;
+      border-right: solid 0.1px #fff;
+    }
+    h2 {
+      font-size: 12px;
+      padding: 2px;
+      border-right: solid 0.1px #fff;
+      cursor: pointer;
+    }
+  }
 `;
 
 const LogoutContainer = styled.div`
@@ -58,6 +72,14 @@ const IconImageProfile = styled.div`
 
     width: 44px;
     height: 44px;
+  }
+  @media (max-width: 868px) {
+    img {
+    border-radius: 50%;
+
+    width: 24px;
+    height: 24px;
+  }
   }
 `;
 
